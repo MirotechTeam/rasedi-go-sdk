@@ -23,7 +23,7 @@ MC4CAQAwBQYDK2VwBCIEID2nK2pCcGSbtS+U9jc2SCYxHWOo1eA4IR97bdif4+rx
 		Title:                  "Test Payment",
 		Description:            "This is a test payment",
 		Gateways:               []rasedi.Gateway{rasedi.GatewayCreditCard},
-		RedirectURL:            "https://time.ir",
+		RedirectURL:            "https://google.com",
 		CollectFeeFromCustomer: true,
 		CollectCustomerEmail:   true,
 		CollectCustomerPhoneNumber: false,
