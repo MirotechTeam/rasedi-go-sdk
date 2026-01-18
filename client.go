@@ -17,7 +17,7 @@ import (
 )
 
 const (
-	APIBaseURL      = "https://api.pallawan.com"
+	APIBaseURL      = "https://api.rasedi.com"
 	UpstreamVersion = 1
 )
 
