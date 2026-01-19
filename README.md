@@ -70,26 +70,7 @@ fmt.Printf("Payment created! Redirect user to: %s\n", response.Body.RedirectURL)
 fmt.Printf("Reference Code: %s\n", response.Body.ReferenceCode)
 ```
 
-### 3. Verify a Payment (Webhook/Callback)
-
-When Rasedi redirects the user back to your site or sends a webhook, you will receive a payload with a `keyId` and `content`. Use the `Verify` method to validate the signature and decode the payment details.
-
-```go
-verifyPayload := rasedi.VerifyPayload{
-    KeyID:   "key_id_from_request",
-    Content: &contentFromRequest, // JWS token string
-}
-
-result, err := client.Verify(verifyPayload)
-if err != nil {
-    log.Fatalf("Verification failed: %v", err)
-}
-
-fmt.Printf("Payment Verified: %+v\n", result["body"])
-// Check status in result["body"]["status"]
-```
-
-### 4. Check Payment Status
+### 3. Check Payment Status
 
 You can also check the status of a payment manually using its reference code.
 
@@ -102,7 +83,7 @@ if err != nil {
 fmt.Printf("Current Status: %s\n", details.Body.Status)
 ```
 
-### 5. Cancel a Payment
+### 4. Cancel a Payment
 
 ```go
 cancelResponse, err := client.CancelPayment("reference-code-here")
