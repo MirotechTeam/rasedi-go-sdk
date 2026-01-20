@@ -50,3 +50,7 @@ To verify users can fetch the new version:
 ```bash
 go get github.com/MirotechTeam/rasedi-go-sdk@v1.0.1
 ```
+
+> **Note:** Run this command from a **different** directory (outside of this project) or initialized module.
+> Running `go get` inside the `rasedi-go-sdk` directory will fail because the package is already in the main module.
+```

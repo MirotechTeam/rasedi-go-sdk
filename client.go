@@ -28,6 +28,8 @@ type Client struct {
 	publicKeys    []PublicKey
 }
 
+// NewClient initializes a new Rasedi SDK client.
+// It determines the environment (test/live) based on the presence of "test" in the secretKey.
 func NewClient(privateKey, secretKey string) *Client {
 	client := &Client{
 		authenticator: NewAuth(privateKey, secretKey), // secretKey is used as keyID/passphrase based on python logic
@@ -119,6 +121,7 @@ func (c *Client) call(path, method string, requestBody interface{}) (map[string]
 
 // Public Methods
 
+// GetPublicKeys fetches the list of public keys used for signature verification.
 func (c *Client) GetPublicKeys() (*PublicKeysResponse, error) {
 	resp, err := c.call("/get-public-keys", "GET", nil)
 	if err != nil {
@@ -140,6 +143,7 @@ func (c *Client) GetPublicKeys() (*PublicKeysResponse, error) {
 	}, nil
 }
 
+// CreatePayment initiates a new payment request.
 func (c *Client) CreatePayment(payload CreatePaymentPayload) (*CreatePaymentResponse, error) {
 	resp, err := c.call("/create", "POST", payload)
 	if err != nil {
@@ -159,6 +163,7 @@ func (c *Client) CreatePayment(payload CreatePaymentPayload) (*CreatePaymentResp
 	}, nil
 }
 
+// GetPaymentByReferenceCode retrieves the status and details of a payment using its reference code.
 func (c *Client) GetPaymentByReferenceCode(referenceCode string) (*PaymentDetailsResponse, error) {
 	resp, err := c.call(fmt.Sprintf("/status/%s", referenceCode), "GET", nil)
 	if err != nil {
@@ -178,6 +183,7 @@ func (c *Client) GetPaymentByReferenceCode(referenceCode string) (*PaymentDetail
 	}, nil
 }
 
+// CancelPayment cancels a pending payment using its reference code.
 func (c *Client) CancelPayment(referenceCode string) (*CancelPaymentResponse, error) {
 	resp, err := c.call(fmt.Sprintf("/cancel/%s", referenceCode), "PATCH", nil)
 	if err != nil {
@@ -197,6 +203,8 @@ func (c *Client) CancelPayment(referenceCode string) (*CancelPaymentResponse, er
 	}, nil
 }
 
+// Verify validates the webhook signature and returns the decoded payload.
+// It automatically fetches public keys if they are not already cached.
 func (c *Client) Verify(payload VerifyPayload) (map[string]interface{}, error) {
 	if len(c.publicKeys) == 0 {
 		if _, err := c.GetPublicKeys(); err != nil {

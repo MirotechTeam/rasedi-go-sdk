@@ -1,5 +1,6 @@
 package rasedi
 
+// Gateway represents the payment gateway provider.
 type Gateway string
 
 const (
@@ -11,6 +12,7 @@ const (
 	GatewayCreditCard Gateway = "CREDIT_CARD"
 )
 
+// PaymentStatus represents the current status of a payment.
 type PaymentStatus string
 
 const (
