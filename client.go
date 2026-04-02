@@ -204,7 +204,7 @@ func (c *Client) CancelPayment(referenceCode string) (*CancelPaymentResponse, er
 }
 
 // Verify validates the webhook signature and returns the decoded payload.
-// It automatically fetches public keys if they are not already cached.
+// Deprecated: Use status checking or webhooks instead.
 func (c *Client) Verify(payload VerifyPayload) (map[string]interface{}, error) {
 	if len(c.publicKeys) == 0 {
 		if _, err := c.GetPublicKeys(); err != nil {

@@ -68,12 +68,14 @@ type CancelPaymentResponse struct {
 }
 
 // VerifyPayload contains the data required to verify a webhook signature or payment completion.
+// Deprecated: Use status checking or webhooks instead.
 type VerifyPayload struct {
 	KeyID   string  `json:"keyId"`
 	Content *string `json:"content"`
 }
 
 // VerifyPaymentResponseBody represents the verification status of a payment.
+// Deprecated: Use status checking instead.
 type VerifyPaymentResponseBody struct {
 	ReferenceCode string        `json:"referenceCode"`
 	Status        PaymentStatus `json:"status"`
@@ -81,6 +83,7 @@ type VerifyPaymentResponseBody struct {
 }
 
 // VerifyPaymentResponse wraps the API response for payment verification.
+// Deprecated: Use status checking instead.
 type VerifyPaymentResponse struct {
 	Body       VerifyPaymentResponseBody `json:"body"`
 	Headers    map[string]string         `json:"headers"`
