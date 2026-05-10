@@ -31,15 +31,28 @@ type CreatePaymentResponse struct {
 	StatusCode int                       `json:"statusCode"`
 }
 
+type PaymentHistoryItem struct {
+	ReferenceCode    string        `json:"referenceCode"`
+	Status           PaymentStatus `json:"status"`
+	Amount           string        `json:"amount"`
+	Gateway          *string       `json:"gateway"`
+	PaidAt           *string       `json:"paidAt"`
+	PayoutAmount     *string       `json:"payoutAmount"`
+	ServiceFeeAmount *string       `json:"serviceFeeAmount"`
+	GatewayFeeAmount *string       `json:"gatewayFeeAmount"`
+	ExpiresAt        *string       `json:"expiresAt"`
+}
+
 // PaymentDetailsResponseBody represents the details of a specific payment.
 type PaymentDetailsResponseBody struct {
 	ReferenceCode string        `json:"referenceCode"`
 	Amount        string        `json:"amount"`
 	PaidVia       *string       `json:"paidVia"`
 	PaidAt        *string       `json:"paidAt"`
-	RedirectURL   string        `json:"redirectUrl"`
-	Status        PaymentStatus `json:"status"`
-	PayoutAmount  *string       `json:"payoutAmount"`
+	RedirectURL   string               `json:"redirectUrl"`
+	Status        PaymentStatus        `json:"status"`
+	PayoutAmount  *string              `json:"payoutAmount"`
+	History       []PaymentHistoryItem `json:"history"`
 }
 
 // PaymentDetailsResponse wraps the API response for fetching payment details.
